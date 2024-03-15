@@ -1,0 +1,38 @@
+.option-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.option-btn{
+    padding: 10px;
+    width: 90px;
+    background-color: rgba(255, 255, 255, 0.161);
+    border: 1px solid #0000004e;
+    border-radius: 4px;
+    color: #00000073;
+    transition: 250ms all ease;
+}
+.option-btn:hover.good{
+    color: #008f24;
+    background-color: #008f243b;
+    border: 1px solid #008f24;
+}
+.option-btn:hover.neutral {
+    color: #ffffff;
+    background-color: #636363;
+    border: 1px solid #ffffff;
+}
+.option-btn:hover.bad {
+    color: #8f0000;
+    background-color: #8f000055;
+    border: 1px solid #8f0000;
+}
+.option-btn:hover.reset {
+    color: #000000;
+    background-color: #ffffff55;
+    border: 1px solid #000000;
+}
+.color{
+    color: rgb(250, 195, 43);
+}

@@ -1,34 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import Description from "./Description/Description";
+import OptionButtons from "./OptionButtons/OptionButtons";
+import Feedback from "./Feedback/Feedback";
+import Notification from "./Notification/Notification";
 
-function App() {
-  const [count, setCount] = useState(0)
+import './App.css';
+
+const App = () => {
+  let [feedback, setFeedback] = useState(() => {
+    const getLocalStorageData = JSON.parse(localStorage.getItem('feedback'));
+    return getLocalStorageData;
+  });
+
+  const updateFeedback = (e) => {
+    const targetName = e.target.textContent.toLowerCase();
+
+    const resetBtn = document.querySelector('#reset');
+    if (e.target === resetBtn) {
+      setFeedback({
+        good: 0,
+        neutral: 0,
+        bad: 0
+      });
+    } else {
+      setFeedback({ ...feedback, [targetName]: feedback[targetName] + 1 });
+    }
+  }
+
+  useEffect(() => {
+    localStorage.setItem('feedback', JSON.stringify(feedback));
+  }, [feedback])
+
+  const totalFeedback = Object.values(feedback).reduce((acc, cur) => { return acc + cur }, 0);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <Description />
+      <OptionButtons updateFeedback={updateFeedback} totalFeedback={totalFeedback} feedback={feedback} />
+      <div className="feedback-wrapper">
+        {totalFeedback != 0 ?
+          <Feedback feedback={feedback} totalFeedback={totalFeedback} />
+          : <Notification />}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
