@@ -6,10 +6,19 @@ import Notification from "./Notification/Notification";
 
 import './App.css';
 
+const initData = {
+  good: 0,
+  neutral: 0,
+  bad: 0
+};
+
 const App = () => {
   let [feedback, setFeedback] = useState(() => {
-    const getLocalStorageData = JSON.parse(localStorage.getItem('feedback'));
-    return getLocalStorageData;
+    const getDataFromLS = JSON.parse(localStorage.getItem('feedback'));
+    if (getDataFromLS === null) {
+      return initData;
+    }
+    return getDataFromLS;
   });
 
   const updateFeedback = (e) => {
@@ -17,11 +26,7 @@ const App = () => {
 
     const resetBtn = document.querySelector('#reset');
     if (e.target === resetBtn) {
-      setFeedback({
-        good: 0,
-        neutral: 0,
-        bad: 0
-      });
+      setFeedback(initData);
     } else {
       setFeedback({ ...feedback, [targetName]: feedback[targetName] + 1 });
     }
