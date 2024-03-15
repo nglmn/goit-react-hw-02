@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Description from "./Description/Description";
-import OptionButtons from "./OptionButtons/OptionButtons";
-import Feedback from "./Feedback/Feedback";
-import Notification from "./Notification/Notification";
+import Description from "../Description/Description";
+import OptionButtons from "../OptionButtons/OptionButtons";
+import Feedback from "../Feedback/Feedback";
+import Notification from "../Notification/Notification";
 
 import './App.css';
 
