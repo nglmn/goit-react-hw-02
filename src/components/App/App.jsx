@@ -21,11 +21,8 @@ const App = () => {
     return getDataFromLS;
   });
 
-  const updateFeedback = (e) => {
-    const targetName = e.target.textContent.toLowerCase();
-
-    const resetBtn = document.querySelector('#reset');
-    if (e.target === resetBtn) {
+  const updateFeedback = (targetName) => {
+    if (targetName === 'reset') {
       setFeedback(initData);
     } else {
       setFeedback({ ...feedback, [targetName]: feedback[targetName] + 1 });
@@ -37,6 +34,8 @@ const App = () => {
   }, [feedback])
 
   const totalFeedback = Object.values(feedback).reduce((acc, cur) => { return acc + cur }, 0);
+  const { good, neutral } = feedback;
+  const positiveRatio = Math.round((((good + neutral) / totalFeedback) * 100));
 
   return (
     <div className="app">
@@ -44,7 +43,7 @@ const App = () => {
       <OptionButtons updateFeedback={updateFeedback} totalFeedback={totalFeedback} feedback={feedback} />
       <div className="feedback-wrapper">
         {totalFeedback != 0 ?
-          <Feedback feedback={feedback} totalFeedback={totalFeedback} />
+          <Feedback feedback={feedback} totalFeedback={totalFeedback} positiveRatio={positiveRatio} />
           : <Notification />}
       </div>
     </div>

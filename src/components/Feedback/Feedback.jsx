@@ -1,6 +1,4 @@
-const Feedback = ({ feedback: { good, neutral, bad }, totalFeedback }) => {
-
-    const positiveRatio = Math.round((((good + neutral) / totalFeedback) * 100));
+const Feedback = ({ feedback: { good, neutral, bad }, totalFeedback, positiveRatio }) => {
 
     const highlightPositiveRatio = (positiveRatio) => {
         let color = null;
